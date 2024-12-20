@@ -24,9 +24,7 @@ class SelectedPaymentMethod extends StatelessWidget {
             elevation: 10,
             context: context,
             builder: (context) {
-              return SelectPaymentMethodBottomsheet(
-                paymentMethods: paymentMethids,
-              );
+              return SelectPaymentMethodBottomsheet();
             });
       },
       child: paymentMethodModel != null

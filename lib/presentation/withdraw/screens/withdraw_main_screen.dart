@@ -61,122 +61,134 @@ class WithdrawMainScreen extends StatelessWidget {
           })
         ],
       ),
-      body: BlocBuilder<WithdrawBloc, WithdrawState>(builder: (context, state) {
-        if (state is WithdrawInitialState) {
-          return Container();
-        }
-        return Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              Text(
-                "withdraw_statement".tr,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              WithdrawTextfield(
-                shakeWidgetKey: shakeWidgetKey,
-                balance: state.balance.toDouble(),
-                focusNode: state.focusNode,
-                textEditingController: state.textEditingController,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: Text(
-                  '${"available_balance_note".tr} ${state.balance} ${"sar".tr}',
-                  textAlign: TextAlign.center,
+      body: BlocConsumer<WithdrawBloc, WithdrawState>(
+        builder: (context, state) {
+          log(state.selectedPaymentMethod?.bankName?.toString() ?? '');
+          if (state is WithdrawInitialState) {
+            return Container();
+          }
+          return Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                Text(
+                  "withdraw_statement".tr,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                WithdrawTextfield(
+                  shakeWidgetKey: shakeWidgetKey,
+                  balance: state.balance.toDouble(),
+                  focusNode: state.focusNode,
+                  textEditingController: state.textEditingController,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    '${"available_balance_note".tr} ${state.balance} ${"sar".tr}',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                WithdrawChoises(
+                    state.choises, selectChoise, state.selectedChoise),
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "payment_method".tr,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              WithdrawChoises(
-                  state.choises, selectChoise, state.selectedChoise),
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                "payment_method".tr,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const Divider(),
-              SelectedPaymentMethod(
-                paymentMethodModel: state.selectedPaymentMethod,
-                paymentMethids: state.paymentMethods,
-              ),
-              const Divider(),
-              const Spacer(),
-              Row(
-                children: [
-                  Icon(Icons.info_outline, size: 18, color: Colors.grey[500]),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "withdraw_duration_note".tr,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(fontSize: 11.sp, color: Colors.grey[500]),
-                  )
-                ],
-              ),
-              const Divider(),
-              SizedBox(
-                  height: 35.sp,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        textStyle: const TextStyle(color: Colors.white),
-                        backgroundColor: const Color(0xFF16B5B7),
-                        // Background color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              16.sp), // Set the radius here
+                const Divider(),
+                SelectedPaymentMethod(
+                  selectedPaymentMethodModel: state.selectedPaymentMethod,
+                  paymentMethodModel: state.selectedPaymentMethod,
+                  paymentMethids: state.paymentMethods,
+                ),
+                const Divider(),
+                const Spacer(),
+                Row(
+                  children: [
+                    Icon(Icons.info_outline, size: 18, color: Colors.grey[500]),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "withdraw_duration_note".tr,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(fontSize: 11.sp, color: Colors.grey[500]),
+                    )
+                  ],
+                ),
+                const Divider(),
+                SizedBox(
+                    height: 35.sp,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(color: Colors.white),
+                          backgroundColor: const Color(0xFF16B5B7),
+                          // Background color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                16.sp), // Set the radius here
+                          ),
                         ),
-                      ),
-                      onPressed: (state.selectedPaymentMethod == null)
-                          ? null
-                          : () {
-                              context
-                                  .read<WithdrawBloc>()
-                                  .add(MakeWithdrawEvent(shakeWidgetKey));
-                            },
-                      child: (state is WithdrawLoadingState)
-                          ? Center(
-                              child: SizedBox(
-                                height: 22.sp,
-                                width: 22.sp,
-                                child: const CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white,
+                        onPressed: (state.selectedPaymentMethod == null)
+                            ? null
+                            : () {
+                                context
+                                    .read<WithdrawBloc>()
+                                    .add(MakeWithdrawEvent(shakeWidgetKey));
+                              },
+                        child: (state is MakeWithdrawLoadingState)
+                            ? Center(
+                                child: SizedBox(
+                                  height: 22.sp,
+                                  width: 22.sp,
+                                  child: const CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            )
-                          : Text(
-                              "continue".tr,
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                            ))),
-              SizedBox(
-                height: 15.sp,
-              )
-            ],
-          ),
-        );
-      }),
+                              )
+                            : Text(
+                                "continue".tr,
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ))),
+                SizedBox(
+                  height: 15.sp,
+                )
+              ],
+            ),
+          );
+        },
+        listener: (BuildContext context, WithdrawState state) {
+          if (state is WithdrawSuccessState) {
+            Navigator.of(context)
+                .pushReplacement(MaterialPageRoute(builder: (context) {
+              return SuccessWithdrawalScreen(state.withdrawResponse);
+            }));
+          }
+        },
+      ),
     );
   }
 }

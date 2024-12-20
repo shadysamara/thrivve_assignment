@@ -60,6 +60,14 @@ class WithdrawBloc extends Bloc<WithdrawEvent, WithdrawState> {
   late PaymentMethodModel? selectedPaymentMethod;
   _onSelectPaymentMethod(
       SelectWithdrawPaymentMethodEvent event, Emitter<WithdrawState> emit) {
+    emit(WithdrawLoadingState(
+        choises: choices,
+        paymentMethods: paymentMethods,
+        balance: balance,
+        focusNode: focusNode,
+        textEditingController: withdrawTextEditingController,
+        selectedPaymentMethod: event.paymentMethodModel,
+        selectedChoise: selectedChoise));
     selectedPaymentMethod = event.paymentMethodModel;
     emit(WithdrawPaymentMthodsLoadedState(
         selectedPaymentMethod: event.paymentMethodModel,
@@ -109,7 +117,7 @@ class WithdrawBloc extends Bloc<WithdrawEvent, WithdrawState> {
     emit(WithdrawPageLoadedState(
         choises: choices,
         paymentMethods: paymentMethods,
-        selectedPaymentMethod: null,
+        selectedPaymentMethod: selectedPaymentMethod,
         textEditingController: withdrawTextEditingController,
         focusNode: focusNode,
         balance: balance,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:thrivve_flutter_assignment/core/utils/assets_manager.dart';
 import 'package:thrivve_flutter_assignment/data/models/withdraw_response.dart';
+import 'package:thrivve_flutter_assignment/presentation/withdraw/screens/withdraw_main_screen.dart';
 
 class SuccessWithdrawalScreen extends StatelessWidget {
   final WithdrawResponse withdrawResponse;

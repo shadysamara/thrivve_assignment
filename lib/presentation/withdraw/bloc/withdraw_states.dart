@@ -115,8 +115,8 @@ class WithdrawSelectChoiseState extends WithdrawState {
       required super.selectedChoise});
 }
 
-class WithdrawErrorState extends WithdrawState {
-  const WithdrawErrorState(
+class MakeWithdrawSuccessState extends WithdrawState {
+  const MakeWithdrawSuccessState(
       {required super.paymentMethods,
       required super.choises,
       super.selectedPaymentMethod,

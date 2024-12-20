@@ -113,6 +113,7 @@ class WithdrawPaymentMethod extends StatelessWidget {
               context
                   .read<WithdrawBloc>()
                   .add(SelectWithdrawPaymentMethodEvent(paymentMethodModel));
+              Navigator.of(context).pop();
             },
             child: getWidgetBody(context))
         : getWidgetBody(context);
