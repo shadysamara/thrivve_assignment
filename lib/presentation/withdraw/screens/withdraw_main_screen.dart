@@ -17,7 +17,7 @@ class WithdrawMainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(actions: const [ThemeIcon(), TranslationIcon()]),
       body: GetBuilder<WithdrawController>(
-        init: WithdrawController(getIt.get()),
+        init: WithdrawController(getIt.get(), 400),
         builder: (controller) {
           return Padding(
             padding: const EdgeInsets.all(12.0),
@@ -85,9 +85,11 @@ class WithdrawMainScreen extends StatelessWidget {
   }
 
   Widget _buildSelectedPaymentMethod(WithdrawController controller) {
-    return SelectedPaymentMethod(
-      paymentMethodModel: controller.selectedPaymentMethod,
-    );
+    return Obx(() {
+      return SelectedPaymentMethod(
+        paymentMethodModel: controller.selectedPaymentMethod.value,
+      );
+    });
   }
 
   Widget _buildWithdrawInfo(BuildContext context) {
@@ -121,7 +123,7 @@ class WithdrawMainScreen extends StatelessWidget {
         ),
         onPressed: controller.selectedPaymentMethod == null
             ? null
-            : () => controller.makeWithdraw(context),
+            : () => controller.makeWithdraw(),
         child: Obx(() {
           return controller.isLoading.value
               ? Center(

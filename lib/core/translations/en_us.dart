@@ -12,5 +12,6 @@ Map<String, String> enUS = {
       "Your payment request has been placed successfully. We will notify you once the payment has been sent to your account.",
   "max_balance_error": "The largest value you are allowed to enter is",
   "fifteen_multiple_error": "The entered number must be a multiple of 50",
-  "min_withdraw_balance": "The minimum value you are allowed to enter is 50"
+  "min_withdraw_balance": "The minimum value you are allowed to enter is 50",
+  "withdraw_again": "Withdraw again"
 };

@@ -36,14 +36,12 @@ class SelectPaymentMethodBottomsheet extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              GetBuilder<WithdrawController>(builder: (controller) {
-                return Column(children: [
-                  ...controller.paymentMethods.map((e) {
-                    return WithdrawPaymentMethod(e, true);
-                  }),
-                  const NewPaymentMethod()
-                ]);
-              }),
+              Column(children: [
+                ...Get.find<WithdrawController>().paymentMethods.map((e) {
+                  return WithdrawPaymentMethod(e, true);
+                }),
+                const NewPaymentMethod()
+              ]),
               const SizedBox(
                 height: 50,
               )

@@ -13,7 +13,7 @@ class WithdrawChoises extends StatelessWidget {
       return Obx(() {
         return Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: controller.getChoises().map((e) {
+            children: controller.choices.map((e) {
               return GestureDetector(
                 onTap: () {
                   controller.setWithdrawbasedOnChoise(e);

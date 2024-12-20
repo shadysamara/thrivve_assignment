@@ -72,7 +72,7 @@ class WithdrawPaymentMethod extends StatelessWidget {
           ),
           const Spacer(),
           isChoisable
-              ? GetBuilder<WithdrawController>(builder: (controller) {
+              ? Obx(() {
                   return Container(
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -83,7 +83,9 @@ class WithdrawPaymentMethod extends StatelessWidget {
                         width: 15,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: controller.selectedPaymentMethod ==
+                            color: Get.find<WithdrawController>()
+                                        .selectedPaymentMethod
+                                        .value ==
                                     paymentMethodModel
                                 ? Colors.black
                                 : Colors.transparent)),
@@ -110,6 +112,7 @@ class WithdrawPaymentMethod extends StatelessWidget {
             onTap: () {
               Get.find<WithdrawController>()
                   .selectPaymentMethod(paymentMethodModel);
+              Get.back();
             },
             child: getWidgetBody(context))
         : getWidgetBody(context);
