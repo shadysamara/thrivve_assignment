@@ -8,13 +8,14 @@ import 'package:thrivve_flutter_assignment/core/routes/routes_pages.dart';
 import 'package:thrivve_flutter_assignment/core/theme/dark_theme.dart';
 import 'package:thrivve_flutter_assignment/core/theme/light_theme.dart';
 import 'package:thrivve_flutter_assignment/core/translations/localization_service.dart';
+import 'package:thrivve_flutter_assignment/data/data_sources/withdraw_source_api.dart';
+import 'package:thrivve_flutter_assignment/data/repositories/withdraw_repository.dart';
+import 'package:thrivve_flutter_assignment/injection_container.dart';
 
 final getIt = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  await initSettingsAndDio();
-  getIt.registerSingleton<SharedPreferences>(sharedPreferences);
+  await init();
   runApp(MyApp());
 }
 

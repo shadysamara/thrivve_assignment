@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_controller.dart';
+import 'package:thrivve_flutter_assignment/data/models/payment_method.dart';
+import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/new_payment_method_widget.dart';
+import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/withdraw_payment_method.dart';
+import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/withdraw_payment_method_bottomsheet.dart';
 
 class SelectedPaymentMethod extends StatelessWidget {
+  final PaymentMethodModel? paymentMethodModel;
+
+  const SelectedPaymentMethod({this.paymentMethodModel, super.key});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GetBuilder<WithdrawController>(
-        id: "selected_payment_method",
-        builder: (controller) {
-          if (controller.selectedPaymentMethod == null) {
-            return Container(
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 30.sp,
-                    child: const Icon(Icons.add_circle_outline),
-                  )
-                ],
-              ),
-            );
-          } else {
-            return Container();
-          }
-        });
+    return GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+            elevation: 10,
+            context: context,
+            builder: (context) {
+              return const SelectPaymentMethodBottomsheet();
+            });
+      },
+      child: paymentMethodModel != null
+          ? WithdrawPaymentMethod(paymentMethodModel!)
+          : const NewPaymentMethod(),
+    );
   }
 }

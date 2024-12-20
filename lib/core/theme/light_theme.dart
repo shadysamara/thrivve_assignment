@@ -7,6 +7,8 @@ final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     textTheme: TextTheme(
         bodyMedium: TextStyle(fontFamily: 'Inter', fontSize: 12.sp),
+        bodyLarge: TextStyle(
+            fontFamily: 'Inter', fontSize: 12.sp, fontWeight: FontWeight.bold),
         bodySmall: TextStyle(
             fontFamily: 'Inter',
             fontSize: 12.sp,

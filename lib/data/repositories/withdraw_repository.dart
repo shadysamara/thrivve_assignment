@@ -6,8 +6,7 @@ class WithdrawApiRepository {
   final WithdrawApiProvider withdrawApiProvider;
   WithdrawApiRepository(this.withdrawApiProvider);
   Future<List<PaymentMethodModel>> getPaymentMethods() async {
-    List<Map<String, dynamic>> response =
-        await withdrawApiProvider.getPaymentMethods();
+    List response = await withdrawApiProvider.getPaymentMethods();
     return response.map((e) {
       return PaymentMethodModel.fromJson(e);
     }).toList();
