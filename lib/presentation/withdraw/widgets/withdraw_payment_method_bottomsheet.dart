@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/state_manager.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_controller.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/new_payment_method_widget.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/withdraw_payment_method.dart';

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/instance_manager.dart';
+
 import 'package:thrivve_flutter_assignment/core/presentation/widgets/shaking_widget.dart';
 import 'package:thrivve_flutter_assignment/core/utils/assets_manager.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_controller.dart';

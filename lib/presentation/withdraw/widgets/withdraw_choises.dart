@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:get/get_utils/get_utils.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/state_manager.dart';
+
 import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_controller.dart';
 
 class WithdrawChoises extends StatelessWidget {

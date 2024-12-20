@@ -1,9 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_utils/get_utils.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/state_manager.dart';
+import 'package:lottie/lottie.dart';
+import 'package:thrivve_flutter_assignment/core/theme/theme_cubit.dart';
+import 'package:thrivve_flutter_assignment/core/translations/localization_cubit.dart';
 import 'package:thrivve_flutter_assignment/core/utils/assets_manager.dart';
 import 'package:thrivve_flutter_assignment/main.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_controller.dart';
@@ -11,6 +15,7 @@ import 'package:thrivve_flutter_assignment/presentation/withdraw/screens/success
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/selected_payment_method.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/withdraw_choises.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/withdraw_textfield.dart';
+import 'package:thrivve_flutter_assignment/injection_container.dart' as di;
 
 class WithdrawMainScreen extends StatelessWidget {
   const WithdrawMainScreen({super.key});
@@ -19,9 +24,36 @@ class WithdrawMainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          BlocBuilder<ThemeCubit, ThemeMode>(builder: (context, themeMode) {
+            return GestureDetector(
+              onTap: () {
+                if (context.read<ThemeCubit>().isLightMode(context)) {
+                  context.read<ThemeCubit>().changeMode(ThemeMode.dark);
+                } else {
+                  context.read<ThemeCubit>().changeMode(ThemeMode.light);
+                }
+              },
+              child: themeMode == ThemeMode.light
+                  ? LottieBuilder.asset(JsonAssets.moonJson)
+                  : LottieBuilder.asset(JsonAssets.sunJson),
+            );
+          }),
+          BlocBuilder<LocalizationCubit, Locale>(builder: (context, locale) {
+            return GestureDetector(
+              onTap: () {
+                context.read<LocalizationCubit>().changeLanguage();
+              },
+              child: LottieBuilder.asset(
+                JsonAssets.languageJson,
+              ),
+            );
+          })
+        ],
+      ),
       body: GetBuilder<WithdrawController>(
-          init: WithdrawController(getIt.get()),
+          init: WithdrawController(di.getIt.get()),
           builder: (controller) {
             return Padding(
               padding: const EdgeInsets.all(12.0),
@@ -33,7 +65,7 @@ class WithdrawMainScreen extends StatelessWidget {
                   ),
                   Text(
                     "withdraw_statement".tr,
-                    style: Get.theme.textTheme.headlineLarge,
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(
                     height: 30,
