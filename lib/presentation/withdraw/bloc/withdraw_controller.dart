@@ -60,20 +60,16 @@ class WithdrawController extends GetxController {
       shakeWidgetKey.currentState?.startShake();
       return;
     } else {
-      try {
-        isLoading.value = true;
-        WithdrawResponse withdrawResponse =
-            await withdrawApiRepository.makeWithdraw();
-        isLoading.value = false;
-        Get.offNamed(Routenames.withdrawSuccess, arguments: withdrawResponse);
-      } catch (error) {
-        isLoading.value = false;
-      }
+      isLoading.value = true;
+      WithdrawResponse withdrawResponse =
+          await withdrawApiRepository.makeWithdraw();
+      isLoading.value = false;
+      Get.offNamed(Routenames.withdrawSuccess, arguments: withdrawResponse);
     }
   }
 
 // this method is built in dunction inside the getxcontroller
-// this method will be excuted one time when  the controller is initialized
+// this method will be excuted one time when  the controller is
   @override
   void onInit() {
     super.onInit();

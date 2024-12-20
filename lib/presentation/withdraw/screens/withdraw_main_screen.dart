@@ -41,7 +41,9 @@ class WithdrawMainScreen extends StatelessWidget {
                 const Spacer(),
                 _buildWithdrawInfo(context),
                 const Divider(),
-                _buildContinueButton(controller, context),
+                Obx(() {
+                  return _buildContinueButton(controller, context);
+                }),
                 const VerticalSpacer(15),
               ],
             ),
@@ -122,7 +124,7 @@ class WithdrawMainScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.sp),
           ),
         ),
-        onPressed: controller.selectedPaymentMethod == null
+        onPressed: controller.selectedPaymentMethod.value == null
             ? null
             : () => controller.makeWithdraw(),
         child: Obx(() {

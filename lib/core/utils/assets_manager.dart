@@ -11,4 +11,5 @@ class JsonAssets {
   static const String moonJson = "assets/lotties/moon.json";
   static const String sunJson = "assets/lotties/sun.json";
   static const String languageJson = "assets/lotties/language.json";
+  static const String errorJson = "assets/lotties/error.json";
 }
