@@ -1,12 +1,12 @@
 Map<String, String> arSA = {
   "withdraw_statement": "أدخل المبلغ الذي تريد سحبه",
   "available_balance_note": "الرصيد المتوفر لديك هو",
-  "sar": "ريال سعودي ",
-  "Payment_method": "طريقة الدفع",
+  "sar": "ر.س",
+  "payment_method": "طريقة الدفع",
   "withdraw_duration_note": "قد تستغرق عمليات السحب البنكي من 12 إلى 24 ساعة",
   "continue": "متابعة",
-  "choose_Payment_title": "اختر طريقة الدفع",
-  "add_ Payment_method": "أضف طريقة دفع جديدة",
+  "choose_payment_title": "اختر طريقة الدفع",
+  "add_payment_method": "أضف طريقة دفع جديدة",
   "success_title": "تم التأكيد بنجاح",
   "success_note":
       "لقد تم تقديم طلب الدفع الخاص بك بنجاح. وسنقوم بإعلامك بمجرد إرسال الدفعة إلى حسابك",

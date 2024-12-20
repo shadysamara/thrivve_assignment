@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thrivve_flutter_assignment/core/utils/enums.dart';
 import 'package:thrivve_flutter_assignment/main.dart';
@@ -15,5 +15,14 @@ class SpHelper {
     String? x = sp.getString('language') ?? 'en';
     Language language = x == 'ar' ? Language.ar : Language.en;
     return language;
+  }
+
+  saveTheme(bool isDark) async {
+    await sp.setBool("isDark", isDark);
+  }
+
+  ThemeMode getTheme() {
+    bool isDark = sp.getBool('isDark') ?? false;
+    return isDark ? ThemeMode.dark : ThemeMode.light;
   }
 }
