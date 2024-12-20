@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:thrivve_flutter_assignment/core/theme/theme_icon.dart';
 import 'package:thrivve_flutter_assignment/core/translations/translation_icon.dart';
-import 'package:thrivve_flutter_assignment/main.dart';
+import 'package:thrivve_flutter_assignment/injection_container.dart' as di;
 import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_controller.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/selected_payment_method.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/withdraw_choises.dart';
@@ -15,9 +15,10 @@ class WithdrawMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: const [ThemeIcon(), TranslationIcon()]),
+      appBar:
+          AppBar(actions: [const ThemeIcon(), TranslationIcon(di.getIt.get())]),
       body: GetBuilder<WithdrawController>(
-        init: WithdrawController(getIt.get(), 400),
+        init: WithdrawController(di.getIt.get(), 400),
         builder: (controller) {
           return Padding(
             padding: const EdgeInsets.all(12.0),

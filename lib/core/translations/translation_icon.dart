@@ -6,14 +6,18 @@ import 'package:thrivve_flutter_assignment/core/utils/assets_manager.dart';
 import 'package:thrivve_flutter_assignment/core/utils/enums.dart';
 
 class TranslationIcon extends StatelessWidget {
-  const TranslationIcon({super.key});
+  final LocalizationService localizationService;
+  const TranslationIcon(
+    this.localizationService, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return GestureDetector(
       onTap: () {
-        LocalizationService.changeLocale((Get.locale == const Locale("ar", "SA")
+        localizationService.changeLocale((Get.locale == const Locale("ar", "SA")
             ? Language.en
             : Language.ar));
         // context.read<LocalizationCubit>().changeLanguage();

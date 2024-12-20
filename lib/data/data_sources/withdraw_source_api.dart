@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:thrivve_flutter_assignment/core/network/api_endpoints.dart';
 
 class WithdrawApiProvider {
-  Dio _dio;
+  final Dio _dio;
   WithdrawApiProvider(this._dio);
   Future<List> getPaymentMethods() async {
     Response response = await _dio.get(ApiEndPoints.get_payment_methods);

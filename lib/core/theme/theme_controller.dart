@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:thrivve_flutter_assignment/core/utils/sharedprefrences_helper.dart';
 
 class ThemeController extends GetxController {
+  final SpHelper spHelper;
+  ThemeController(this.spHelper);
   Rx<ThemeMode> themeMode = ThemeMode.light.obs;
   changeTheme() {
     themeMode.value =
@@ -10,10 +12,10 @@ class ThemeController extends GetxController {
     update();
 
     bool isDark = themeMode.value == ThemeMode.dark ? true : false;
-    SpHelper.spHelper.saveTheme(isDark);
+    spHelper.saveTheme(isDark);
   }
 
   getTheme() {
-    themeMode.value = SpHelper.spHelper.getTheme();
+    themeMode.value = spHelper.getTheme();
   }
 }

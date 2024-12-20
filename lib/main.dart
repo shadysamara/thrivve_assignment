@@ -9,7 +9,6 @@ import 'package:thrivve_flutter_assignment/core/theme/theme_controller.dart';
 import 'package:thrivve_flutter_assignment/core/translations/localization_service.dart';
 import 'package:thrivve_flutter_assignment/injection_container.dart';
 
-final getIt = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
@@ -27,9 +26,9 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return Obx(() {
             return GetMaterialApp(
-              locale: LocalizationService.getSavedLocal(),
+              locale: getIt.get<LocalizationService>().getSavedLocal(),
               fallbackLocale: LocalizationService.fallbackLocale,
-              translations: LocalizationService(),
+              translations: getIt.get<LocalizationService>(),
               debugShowCheckedModeBanner: false,
               getPages: GetPages.getPages,
               themeMode: getIt.get<ThemeController>().themeMode.value,

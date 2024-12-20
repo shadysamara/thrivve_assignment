@@ -4,9 +4,9 @@ import 'package:thrivve_flutter_assignment/core/utils/enums.dart';
 import 'package:thrivve_flutter_assignment/main.dart';
 
 class SpHelper {
-  SpHelper._();
-  static SpHelper spHelper = SpHelper._();
-  SharedPreferences sp = getIt.get();
+  final SharedPreferences sp;
+  SpHelper(this.sp);
+
   setLanguage(Language language) {
     sp.setString('language', language == Language.ar ? 'ar' : 'en');
   }

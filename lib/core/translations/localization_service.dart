@@ -6,12 +6,14 @@ import 'package:thrivve_flutter_assignment/core/utils/enums.dart';
 import 'package:thrivve_flutter_assignment/core/utils/sharedprefrences_helper.dart';
 
 class LocalizationService extends Translations {
-  static setLocale(Language lan) {
-    SpHelper.spHelper.setLanguage(lan);
+  final SpHelper spHelper;
+  LocalizationService(this.spHelper);
+  setLocale(Language lan) {
+    spHelper.setLanguage(lan);
   }
 
-  static Locale getSavedLocal() {
-    Language lan = SpHelper.spHelper.getLanguage();
+  Locale getSavedLocal() {
+    Language lan = spHelper.getLanguage();
     if (lan == Language.ar) {
       return const Locale('ar', 'SA');
     } else {
@@ -34,7 +36,7 @@ class LocalizationService extends Translations {
         'ar_SA': arSA, // lang/tr_tr.dart
       };
 
-  static changeLocale(Language lan) {
+  changeLocale(Language lan) {
     Locale locale;
     if (lan == Language.ar) {
       locale = const Locale('ar', 'SA');
