@@ -56,6 +56,7 @@ class WithdrawController extends GetxController {
   final GlobalKey<ShakeWidgetState> shakeWidgetKey =
       GlobalKey<ShakeWidgetState>();
   makeWithdraw() async {
+    if (isLoading.value == false) {}
     if (withdrawTextEditingController.text == "") {
       shakeWidgetKey.currentState?.startShake();
       return;
@@ -63,8 +64,9 @@ class WithdrawController extends GetxController {
       isLoading.value = true;
       WithdrawResponse withdrawResponse =
           await withdrawApiRepository.makeWithdraw();
-      isLoading.value = false;
+
       Get.offNamed(Routenames.withdrawSuccess, arguments: withdrawResponse);
+      // isLoading.value = false;
     }
   }
 

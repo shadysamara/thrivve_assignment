@@ -124,7 +124,8 @@ class WithdrawMainScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.sp),
           ),
         ),
-        onPressed: controller.selectedPaymentMethod.value == null
+        onPressed: ((controller.selectedPaymentMethod.value == null) ||
+                (controller.isLoading.value))
             ? null
             : () => controller.makeWithdraw(),
         child: Obx(() {

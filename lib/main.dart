@@ -11,6 +11,7 @@ import 'package:thrivve_flutter_assignment/injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
   await init();
   runApp(MyApp());
 }

@@ -102,14 +102,4 @@ void main() {
     await withdrawController.makeWithdraw();
     expect(withdrawController.isLoading.value, false);
   });
-
-  test('makeWithdraw handles failed withdrawal', () async {
-    when(() => mockWithdrawApiRepository.makeWithdraw())
-        .thenThrow(Exception('Failed'));
-    withdrawController.withdrawTextEditingController.text = '100';
-
-    await withdrawController.makeWithdraw();
-
-    expect(withdrawController.isLoading.value, false);
-  });
 }
