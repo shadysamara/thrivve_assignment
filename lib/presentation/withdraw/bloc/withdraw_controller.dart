@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:thrivve_flutter_assignment/core/presentation/widgets/shaking_widget.dart';
 import 'package:thrivve_flutter_assignment/data/models/payment_method.dart';
 import 'package:thrivve_flutter_assignment/data/models/withdraw_response.dart';
 import 'package:thrivve_flutter_assignment/data/repositories/withdraw_repository.dart';
@@ -40,8 +41,11 @@ class WithdrawController extends GetxController {
   }
 
   RxBool isLoading = false.obs;
+  final GlobalKey<ShakeWidgetState> shakeWidgetKey =
+      GlobalKey<ShakeWidgetState>();
   makeWithdraw(BuildContext context) async {
     if (withdrawTextEditingController.text == "") {
+      shakeWidgetKey.currentState?.startShake();
     } else {
       isLoading.value = true;
       WithdrawResponse withdrawResponse =

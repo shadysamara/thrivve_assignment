@@ -5,6 +5,9 @@ final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: Colors.blue,
     scaffoldBackgroundColor: Colors.white,
+    dividerColor: Colors.grey[100],
+    appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.white),
     textTheme: TextTheme(
         bodyMedium: TextStyle(fontFamily: 'Inter', fontSize: 12.sp),
         bodyLarge: TextStyle(

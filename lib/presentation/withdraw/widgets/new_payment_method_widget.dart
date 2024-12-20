@@ -9,6 +9,7 @@ class NewPaymentMethod extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
+      color: Colors.transparent,
       padding: EdgeInsets.all(10.sp),
       child: Row(
         children: [

@@ -33,7 +33,7 @@ class WithdrawMainScreen extends StatelessWidget {
                   ),
                   Text(
                     "withdraw_statement".tr,
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: Get.theme.textTheme.headlineLarge,
                   ),
                   const SizedBox(
                     height: 30,
@@ -66,15 +66,11 @@ class WithdrawMainScreen extends StatelessWidget {
                     "payment_method".tr,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  Divider(
-                    color: Colors.grey[100],
-                  ),
+                  const Divider(),
                   SelectedPaymentMethod(
                     paymentMethodModel: controller.selectedPaymentMethod,
                   ),
-                  Divider(
-                    color: Colors.grey[100],
-                  ),
+                  const Divider(),
                   const Spacer(),
                   Row(
                     children: [
@@ -92,9 +88,7 @@ class WithdrawMainScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  Divider(
-                    color: Colors.grey[100],
-                  ),
+                  const Divider(),
                   SizedBox(
                       height: 35.sp,
                       width: double.infinity,

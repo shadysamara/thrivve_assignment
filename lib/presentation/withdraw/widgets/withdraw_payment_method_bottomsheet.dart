@@ -14,7 +14,7 @@ class SelectPaymentMethodBottomsheet extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-              color: Colors.white,
+              // color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(20.sp))),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -32,9 +32,7 @@ class SelectPaymentMethodBottomsheet extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Divider(
-                color: Colors.grey[100],
-              ),
+              const Divider(),
               const SizedBox(
                 height: 10,
               ),
@@ -60,7 +58,7 @@ class SelectPaymentMethodBottomsheet extends StatelessWidget {
               Navigator.of(context).pop();
             },
             child: CircleAvatar(
-              backgroundColor: Colors.grey[100],
+              backgroundColor: Colors.grey.withOpacity(0.1),
               child: Icon(Icons.close),
             ),
           ),

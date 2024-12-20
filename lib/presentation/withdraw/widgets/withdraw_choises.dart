@@ -26,7 +26,7 @@ class WithdrawChoises extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20.r),
                         color: controller.selectedChoiseValue.value == e
                             ? Colors.grey[700]
-                            : Colors.grey[200]),
+                            : Theme.of(context).dividerColor),
                     child: Text(
                       '$e ${"sar".tr}',
                       style: TextStyle(
