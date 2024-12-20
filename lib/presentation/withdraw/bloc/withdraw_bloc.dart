@@ -8,9 +8,21 @@ import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_e
 import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_states.dart';
 
 class WithdrawBloc extends Bloc<WithdrawEvent, WithdrawState> {
-  WithdrawApiRepository withdrawApiRepository;
-  WithdrawBloc(this.withdrawApiRepository)
-      : super(const WithdrawInitialState()) {
+  final WithdrawApiRepository withdrawApiRepository;
+  final int balance;
+
+  late final FocusNode focusNode;
+  late final TextEditingController withdrawTextEditingController;
+
+  WithdrawBloc(this.withdrawApiRepository, this.balance, this.focusNode,
+      this.withdrawTextEditingController)
+      : super(WithdrawInitialState(
+            balance: balance,
+            focusNode: focusNode,
+            textEditingController: withdrawTextEditingController,
+            choises: [],
+            paymentMethods: [],
+            selectedChoise: 0)) {
     on<LoadWithdrawPageEvent>(_onLoadWithdrawPageMethod);
     on<SelectWithdrawPaymentMethodEvent>(_onSelectPaymentMethod);
     on<MakeWithdrawEvent>(_onMakeWithdrawEvent);
@@ -20,29 +32,44 @@ class WithdrawBloc extends Bloc<WithdrawEvent, WithdrawState> {
   List<int> choices = [];
   _onLoadWithdrawPageMethod(
       LoadWithdrawPageEvent event, Emitter<WithdrawState> emit) async {
-    emit(WithdrawLoadingState(
-        choises: state.choises, paymentMethods: state.paymentMethods));
     choices = getChoises(event.balance);
-    Future<List<PaymentMethodModel>> paymentMethodsInFuture =
-        getAllPaymentMethods();
-    emit(WithdrawPageLoadedState(
+    emit(WithdrawLoadingState(
         choises: choices,
         paymentMethods: [],
-        withdrawTextEditingController: withdrawTextEditingController));
+        balance: balance,
+        focusNode: focusNode,
+        textEditingController: withdrawTextEditingController,
+        selectedPaymentMethod: null,
+        selectedChoise: selectedChoise));
+
+    Future<List<PaymentMethodModel>> paymentMethodsInFuture =
+        getAllPaymentMethods();
+
     paymentMethods = await paymentMethodsInFuture;
     emit(WithdrawPaymentMthodsLoadedState(
+        selectedPaymentMethod: null,
         choises: choices,
         paymentMethods: paymentMethods,
-        withdrawTextEditingController: withdrawTextEditingController));
+        withdrawTextEditingController: withdrawTextEditingController,
+        textEditingController: withdrawTextEditingController,
+        focusNode: focusNode,
+        selectedChoise: selectedChoise,
+        balance: balance));
   }
 
+  late PaymentMethodModel? selectedPaymentMethod;
   _onSelectPaymentMethod(
       SelectWithdrawPaymentMethodEvent event, Emitter<WithdrawState> emit) {
+    selectedPaymentMethod = event.paymentMethodModel;
     emit(WithdrawPaymentMthodsLoadedState(
+        selectedPaymentMethod: event.paymentMethodModel,
         choises: choices,
         paymentMethods: paymentMethods,
-        selectedPaymentMethod: event.paymentMethodModel,
-        withdrawTextEditingController: withdrawTextEditingController));
+        withdrawTextEditingController: withdrawTextEditingController,
+        textEditingController: withdrawTextEditingController,
+        focusNode: focusNode,
+        selectedChoise: selectedChoise,
+        balance: balance));
   }
 
   _onMakeWithdrawEvent(
@@ -51,28 +78,45 @@ class WithdrawBloc extends Bloc<WithdrawEvent, WithdrawState> {
       event.shakeWidgetKey.currentState?.startShake();
     } else {
       emit(MakeWithdrawLoadingState(
-        choises: choices,
-        paymentMethods: paymentMethods,
-        selectedPaymentMethod: event.paymentMethodModel,
-      ));
-      emit(MakeWithdrawLoadingState(
-        choises: choices,
-        paymentMethods: paymentMethods,
-        selectedPaymentMethod: event.paymentMethodModel,
-      ));
+          selectedPaymentMethod: selectedPaymentMethod,
+          choises: choices,
+          paymentMethods: paymentMethods,
+          textEditingController: withdrawTextEditingController,
+          focusNode: focusNode,
+          balance: balance,
+          selectedChoise: selectedChoise));
+
       WithdrawResponse? withdrawResponse =
           await makeWithdraw(event.shakeWidgetKey);
 
       emit(WithdrawSuccessState(
           choises: choices,
           paymentMethods: paymentMethods,
-          selectedPaymentMethod: event.paymentMethodModel,
-          withdrawResponse: withdrawResponse!));
+          selectedPaymentMethod: selectedPaymentMethod,
+          withdrawResponse: withdrawResponse!,
+          textEditingController: withdrawTextEditingController,
+          focusNode: focusNode,
+          balance: balance,
+          selectedChoise: selectedChoise));
     }
   }
 
+  int selectedChoise = 0;
   _onSelectBalanceEvent(
-      SelectBalanceChoise event, Emitter<WithdrawState> emit) {}
+      SelectBalanceChoise event, Emitter<WithdrawState> emit) {
+    selectedChoise = event.value;
+    withdrawTextEditingController.text = event.value.toString();
+    emit(WithdrawPageLoadedState(
+        choises: choices,
+        paymentMethods: paymentMethods,
+        selectedPaymentMethod: null,
+        textEditingController: withdrawTextEditingController,
+        focusNode: focusNode,
+        balance: balance,
+        withdrawTextEditingController: withdrawTextEditingController,
+        selectedChoise: selectedChoise));
+  }
+
   Future<List<PaymentMethodModel>> getAllPaymentMethods() async {
     List<PaymentMethodModel> paymentMethods =
         await withdrawApiRepository.getPaymentMethods();
@@ -98,6 +142,4 @@ class WithdrawBloc extends Bloc<WithdrawEvent, WithdrawState> {
       return withdrawResponse;
     }
   }
-
-  TextEditingController withdrawTextEditingController = TextEditingController();
 }

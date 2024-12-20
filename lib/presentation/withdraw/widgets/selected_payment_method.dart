@@ -8,8 +8,13 @@ import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/withdra
 
 class SelectedPaymentMethod extends StatelessWidget {
   final PaymentMethodModel? paymentMethodModel;
-
-  const SelectedPaymentMethod({this.paymentMethodModel, super.key});
+  final PaymentMethodModel? selectedPaymentMethodModel;
+  final List<PaymentMethodModel> paymentMethids;
+  const SelectedPaymentMethod(
+      {this.paymentMethodModel,
+      required this.paymentMethids,
+      this.selectedPaymentMethodModel,
+      super.key});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -19,11 +24,14 @@ class SelectedPaymentMethod extends StatelessWidget {
             elevation: 10,
             context: context,
             builder: (context) {
-              return const SelectPaymentMethodBottomsheet();
+              return SelectPaymentMethodBottomsheet(
+                paymentMethods: paymentMethids,
+              );
             });
       },
       child: paymentMethodModel != null
-          ? WithdrawPaymentMethod(paymentMethodModel!)
+          ? WithdrawPaymentMethod(
+              paymentMethodModel!, selectedPaymentMethodModel)
           : const NewPaymentMethod(),
     );
   }

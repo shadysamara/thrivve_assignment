@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:thrivve_flutter_assignment/core/utils/assets_manager.dart';
 import 'package:thrivve_flutter_assignment/data/models/withdraw_response.dart';
@@ -35,7 +34,7 @@ class SuccessWithdrawalScreen extends StatelessWidget {
             Positioned.fill(
               bottom: 60,
               child: Container(
-                width: Get.width,
+                width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.all(20.sp),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

@@ -9,6 +9,7 @@ import 'package:thrivve_flutter_assignment/core/theme/light_theme.dart';
 import 'package:thrivve_flutter_assignment/core/theme/theme_cubit.dart';
 import 'package:thrivve_flutter_assignment/core/translations/localization_cubit.dart';
 import 'package:thrivve_flutter_assignment/core/translations/localization_service.dart';
+import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_bloc.dart';
 import '../injection_container.dart' as di;
 import 'package:thrivve_flutter_assignment/injection_container.dart';
 
@@ -39,15 +40,19 @@ class MyApp extends StatelessWidget {
                 builder: (themeContext, themeMode) {
               return BlocBuilder<LocalizationCubit, Locale>(
                   builder: (context, locale) {
-                return GetMaterialApp(
-                  locale: locale,
-                  fallbackLocale: LocalizationService.fallbackLocale,
-                  translations: LocalizationService(),
-                  debugShowCheckedModeBanner: false,
-                  getPages: GetPages.getPages,
-                  themeMode: themeMode,
-                  darkTheme: darkTheme,
-                  theme: lightTheme,
+                return BlocProvider<WithdrawBloc>(
+                  create: (context) => WithdrawBloc(
+                      getIt.get(), 400, FocusNode(), TextEditingController()),
+                  child: GetMaterialApp(
+                    locale: locale,
+                    fallbackLocale: LocalizationService.fallbackLocale,
+                    translations: LocalizationService(),
+                    debugShowCheckedModeBanner: false,
+                    getPages: GetPages.getPages,
+                    themeMode: themeMode,
+                    darkTheme: darkTheme,
+                    theme: lightTheme,
+                  ),
                 );
               });
             });

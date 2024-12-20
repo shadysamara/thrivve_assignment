@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:thrivve_flutter_assignment/core/presentation/widgets/custom_network_image.dart';
+import 'package:thrivve_flutter_assignment/core/theme/theme_cubit.dart';
 import 'package:thrivve_flutter_assignment/data/models/payment_method.dart';
+import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_bloc.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_controller.dart';
+import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_events.dart';
 
 class WithdrawPaymentMethod extends StatelessWidget {
+  final PaymentMethodModel? selectPaymentMethod;
   final PaymentMethodModel paymentMethodModel;
   final bool isChoisable;
   const WithdrawPaymentMethod(this.paymentMethodModel,
-      [this.isChoisable = false]);
+      [this.selectPaymentMethod, this.isChoisable = false]);
   Widget getWidgetBody(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.sp),
@@ -72,23 +77,20 @@ class WithdrawPaymentMethod extends StatelessWidget {
           ),
           const Spacer(),
           isChoisable
-              ? GetBuilder<WithdrawController>(builder: (controller) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.black, width: 2)),
-                    child: Container(
-                        margin: EdgeInsets.all(3.sp),
-                        height: 15,
-                        width: 15,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: controller.selectedPaymentMethod ==
-                                    paymentMethodModel
-                                ? Colors.black
-                                : Colors.transparent)),
-                  );
-                })
+              ? Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.black, width: 2)),
+                  child: Container(
+                      margin: EdgeInsets.all(3.sp),
+                      height: 15,
+                      width: 15,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: selectPaymentMethod == paymentMethodModel
+                              ? Colors.black
+                              : Colors.transparent)),
+                )
               : Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.grey[500],
@@ -108,8 +110,9 @@ class WithdrawPaymentMethod extends StatelessWidget {
     return isChoisable
         ? GestureDetector(
             onTap: () {
-              Get.find<WithdrawController>()
-                  .selectPaymentMethod(paymentMethodModel);
+              context
+                  .read<WithdrawBloc>()
+                  .add(SelectWithdrawPaymentMethodEvent(paymentMethodModel));
             },
             child: getWidgetBody(context))
         : getWidgetBody(context);

@@ -13,11 +13,12 @@ class WithdrawTextfield extends StatefulWidget {
   final double balance;
   final FocusNode focusNode;
   final TextEditingController textEditingController;
-
-  const WithdrawTextfield({
+  GlobalKey<ShakeWidgetState> shakeWidgetKey;
+  WithdrawTextfield({
     super.key,
     required this.balance,
     required this.focusNode,
+    required this.shakeWidgetKey,
     required this.textEditingController,
   });
 
@@ -94,7 +95,7 @@ class _WithdrawTextfieldState extends State<WithdrawTextfield> {
   @override
   Widget build(BuildContext context) {
     return ShakeWidget(
-      key: Get.find<WithdrawController>().shakeWidgetKey,
+      key: widget.shakeWidgetKey,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

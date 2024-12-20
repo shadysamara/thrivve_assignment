@@ -15,11 +15,8 @@ class SelectWithdrawPaymentMethodEvent extends WithdrawEvent {
 }
 
 class MakeWithdrawEvent extends WithdrawEvent {
-  PaymentMethodModel paymentMethodModel;
-  TextEditingController withdrawTextEditingController;
   GlobalKey<ShakeWidgetState> shakeWidgetKey;
-  MakeWithdrawEvent(this.paymentMethodModel, this.shakeWidgetKey,
-      this.withdrawTextEditingController);
+  MakeWithdrawEvent(this.shakeWidgetKey);
 }
 
 class SelectBalanceChoise extends WithdrawEvent {

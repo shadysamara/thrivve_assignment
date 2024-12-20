@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/state_manager.dart';
+import 'package:thrivve_flutter_assignment/data/models/payment_method.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/bloc/withdraw_controller.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/new_payment_method_widget.dart';
 import 'package:thrivve_flutter_assignment/presentation/withdraw/widgets/withdraw_payment_method.dart';
 
 class SelectPaymentMethodBottomsheet extends StatelessWidget {
-  const SelectPaymentMethodBottomsheet({super.key});
+  final List<PaymentMethodModel> paymentMethods;
+  final PaymentMethodModel? selectedPaymentMethod;
+  const SelectPaymentMethodBottomsheet(
+      {super.key, required this.paymentMethods, this.selectedPaymentMethod});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -37,14 +41,12 @@ class SelectPaymentMethodBottomsheet extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              GetBuilder<WithdrawController>(builder: (controller) {
-                return Column(children: [
-                  ...controller.paymentMethods.map((e) {
-                    return WithdrawPaymentMethod(e, true);
-                  }),
-                  const NewPaymentMethod()
-                ]);
-              }),
+              Column(children: [
+                ...paymentMethods.map((e) {
+                  return WithdrawPaymentMethod(e, selectedPaymentMethod, true);
+                }),
+                const NewPaymentMethod()
+              ]),
               const SizedBox(
                 height: 50,
               )
